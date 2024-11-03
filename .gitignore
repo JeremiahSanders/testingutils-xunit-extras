@@ -476,6 +476,10 @@ $RECYCLE.BIN/
 # Windows shortcuts
 *.lnk
 
+# JetBrains IDEs
+.idea/
+
 # CI
 /build
 /ci/env.local.sh
+!/ci/bin/
