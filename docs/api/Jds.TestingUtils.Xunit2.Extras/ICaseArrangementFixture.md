@@ -1,10 +1,18 @@
 # ICaseArrangementFixture interface
 
-A general-purpose test case fixture.
+A general-purpose test case fixture. Apply to an xUnit "test class" (i.e., a class which contains one or more facts ( FactAttribute) or theories (TheoryAttribute)).
 
 ```csharp
 public interface ICaseArrangementFixture : IAsyncLifetime, ICasePhases, IDestructiveCase
 ```
+
+## Remarks
+
+Implementing this interface creates default implementations of all ICasePhases (e.g., ActAsync).
+
+Additionally, this interface implements xUnit's IAsyncLifetime. It executes ArrangeAsync, AcquireSanityValuesAsync, ActAsync, and AcquireVerificationValuesAsync during InitializeAsync. It executes CleanupAsync during DisposeAsync.
+
+How to use: implement one or more of the ICasePhases methods.
 
 ## See Also
 

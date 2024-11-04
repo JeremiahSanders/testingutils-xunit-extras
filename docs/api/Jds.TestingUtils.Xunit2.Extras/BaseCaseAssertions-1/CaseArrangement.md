@@ -8,7 +8,7 @@ public TCaseArrangementFixture CaseArrangement { get; }
 
 ## Remarks
 
-The !:TCaseArrangementFixture is expected to expose properties which capture the results of ActAsync, AcquireVerificationValuesAsync, and AcquireSanityValuesAsync.
+The *TCaseArrangementFixture* is expected to expose properties which capture the results of ActAsync, AcquireVerificationValuesAsync, and AcquireSanityValuesAsync.
 
 ## See Also
 

@@ -21,7 +21,7 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> :
 
 ## Remarks
 
-xUnit will create a single instance of !:TCaseArrangementFixture and provide the same instance to each test method (due to IClassFixture).
+xUnit will create a single instance of *TCaseArrangementFixture* and provide the same instance to each test method (due to IClassFixture).
 
 ## See Also
 

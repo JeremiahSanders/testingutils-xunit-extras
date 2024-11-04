@@ -1,5 +1,7 @@
 # SharedCaseContextGenerator class
 
+A source generator which produces a base test case arrangement fixture, a base "assertion"/"test" class, and an implementation of ICollectionFixture (required for xUnit).
+
 ```csharp
 public class SharedCaseContextGenerator : ISourceGenerator
 ```

@@ -2,9 +2,15 @@
 using Jds.TestingUtils.Xunit2.Extras.GeneratorInternal;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Xunit;
 
 namespace Jds.TestingUtils.Xunit2.Extras;
 
+/// <summary>
+///   A source generator which produces a base test case arrangement fixture,
+///   a base &quot;assertion&quot;/&quot;test&quot; class,
+///   and an implementation of <see cref="ICollectionFixture{TFixture}" /> (required for xUnit).
+/// </summary>
 [Generator]
 public class SharedCaseContextGenerator : ISourceGenerator
 {
