@@ -10,7 +10,7 @@ namespace Jds.TestingUtils.Xunit2.Extras;
 /// </summary>
 /// <remarks>
 ///     <para>
-///         xUnit will create a single instance of <see cref="TCaseArrangementFixture" /> and provide the same instance
+///         xUnit will create a single instance of <typeparamref name="TCaseArrangementFixture"/> and provide the same instance
 ///         to each test method (due to <see cref="IClassFixture{TFixture}" />).
 ///     </para>
 /// </remarks>
@@ -37,7 +37,7 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> : IClassFixtur
     /// </summary>
     /// <remarks>
     ///     <para>
-    ///         The <see cref="TCaseArrangementFixture" /> is expected to expose properties which capture the results of
+    ///         The <typeparamref name="TCaseArrangementFixture"/> is expected to expose properties which capture the results of
     ///         <see cref="ICasePhases.ActAsync" />, <see cref="ICasePhases.AcquireVerificationValuesAsync" />, and
     ///         <see cref="ICasePhases.AcquireSanityValuesAsync" />.
     ///     </para>

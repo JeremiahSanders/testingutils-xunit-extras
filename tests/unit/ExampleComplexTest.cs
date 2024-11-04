@@ -52,7 +52,7 @@ public class ExampleComplexTest : BaseCaseAssertions<ExampleComplexTest.CaseFixt
     {
         public Guid ArrangedUserId { get; private set; }
 
-        public string ActResult { get; private set; }
+        public string ActResult { get; private set; } = string.Empty;
 
         public async Task ArrangeAsync()
         {

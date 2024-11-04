@@ -1,6 +1,6 @@
 # SharedCaseContextAttribute class
 
-Attribute which declares that this `class` (the `class` to which it is applied) is designed to be a "shared case context." Applying this attribute triggers the generation of an `abstract` base test case fixture `class`, via [`SharedCaseContextGenerator`](./SharedCaseContextGenerator.md). The generated test case fixture `class` will be named to match this class, with a "Fixture" suffix. For example, if this class is named `ExampleSharedContext`, then the generated `class` would be named `ExampleSharedContextFixture`.
+Attribute which declares that this `class` (the `class` to which it is applied) is designed to be a "shared case context." Applying this attribute triggers the generation of an `abstract` base test case arrangement fixture `class` and an `abstract` base test "assertion" `class`, via [`SharedCaseContextGenerator`](./SharedCaseContextGenerator.md). The generated classes will be named to match this class, but with a suffix: "Fixture", and "Assertions". For example, if this class is named `ExampleSharedContext`, then the generated classes would be named `ExampleSharedContextFixture` and `ExampleSharedContextAssertions`.
 
 ```csharp
 [AttributeUsage(AttributeTargets.Class)]
