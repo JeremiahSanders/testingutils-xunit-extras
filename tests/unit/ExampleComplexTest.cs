@@ -1,5 +1,4 @@
-﻿using Jds.TestingUtils.Patterns;
-using Xunit.Abstractions;
+﻿using Xunit.Abstractions;
 
 namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
 

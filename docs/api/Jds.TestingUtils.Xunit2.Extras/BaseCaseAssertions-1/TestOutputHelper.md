@@ -10,11 +10,11 @@ public ITestOutputHelper TestOutputHelper { get; }
 
 Derived types (test case assertion classes) test methods can use this to log messages.
 
-This is most commonly used with sanity tests (tests making assertions about state after ArrangeAsync, but before ActAsync). In these tests it is used to log an arrangement's "initial state".
+This is most commonly used with sanity tests (tests making assertions about state after [`ArrangeAsync`](../ICasePhases/ArrangeAsync.md), but before [`ActAsync`](../ICasePhases/ActAsync.md)). In these tests it is used to log an arrangement's "initial state".
 
-When used in tests making assertions about the ActAsync results, it is most commonly used to log parameters and/or results.
+When used in tests making assertions about the [`ActAsync`](../ICasePhases/ActAsync.md) results, it is most commonly used to log parameters and/or results.
 
-When used in verification tests (tests making assertions about the values captured during AcquireVerificationValuesAsync), it is most commonly used to log unexpected values or failure context prior to invoking "assert" test methods (since they normally throw exceptions on failures).
+When used in verification tests (tests making assertions about the values captured during [`AcquireVerificationValuesAsync`](../ICasePhases/AcquireVerificationValuesAsync.md)), it is most commonly used to log unexpected values or failure context prior to invoking "assert" test methods (since they normally throw exceptions on failures).
 
 ## See Also
 

@@ -6,15 +6,18 @@ set -o nounset  # Fail if an unset variable is used.
 set -o pipefail # Fail pipelines if any command errors, not just the last one.
 
 function ci-regenerate-docs() {
-  printf "Beginning document regeneration...\n\n"
+  function __cleanup(){
+    if [[ -d "${PROJECT_ROOT}/docs/api" ]]; then
+      rm -rfv "${PROJECT_ROOT}/docs/api"
+    fi
+  }
 
-  if [[ ! -d "${PROJECT_ROOT}/docs/api" ]]; then
+  printf "Beginning document regeneration...\n\n" &&
+    __cleanup &&
     mkdir -p "${PROJECT_ROOT}/docs/api"
-  fi
-  ci-compose &&
-    cp -R "${BUILD_DOCS}/md/." "${PROJECT_ROOT}/docs/api/"
-
-  printf "Document regeneration complete.\n\n"
+    ci-compose &&
+    cp -R "${BUILD_DOCS}/md/." "${PROJECT_ROOT}/docs/api/" &&
+    printf "Document regeneration complete.\n\n"
 }
 
 export -f ci-regenerate-docs

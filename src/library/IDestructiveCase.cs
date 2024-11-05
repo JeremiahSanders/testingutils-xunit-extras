@@ -1,4 +1,4 @@
-﻿namespace Jds.TestingUtils.Patterns;
+﻿namespace Jds.TestingUtils.Xunit2.Extras;
 
 /// <summary>
 ///   Methods which provide an API to clean up changes made by the test case arrangement.

@@ -8,14 +8,16 @@ public interface ICaseArrangementFixture : IAsyncLifetime, ICasePhases, IDestruc
 
 ## Remarks
 
-Implementing this interface creates default implementations of all ICasePhases (e.g., ActAsync).
+Implementing this interface creates default implementations of all [`ICasePhases`](./ICasePhases.md) (e.g., [`ActAsync`](./ICasePhases/ActAsync.md)).
 
-Additionally, this interface implements xUnit's IAsyncLifetime. It executes ArrangeAsync, AcquireSanityValuesAsync, ActAsync, and AcquireVerificationValuesAsync during InitializeAsync. It executes CleanupAsync during DisposeAsync.
+Additionally, this interface implements xUnit's IAsyncLifetime. It executes [`ArrangeAsync`](./ICasePhases/ArrangeAsync.md), [`AcquireSanityValuesAsync`](./ICasePhases/AcquireSanityValuesAsync.md), [`ActAsync`](./ICasePhases/ActAsync.md), and [`AcquireVerificationValuesAsync`](./ICasePhases/AcquireVerificationValuesAsync.md) during InitializeAsync. It executes [`CleanupAsync`](./IDestructiveCase/CleanupAsync.md) during DisposeAsync.
 
-How to use: implement one or more of the ICasePhases methods.
+How to use: implement one or more of the [`ICasePhases`](./ICasePhases.md) methods.
 
 ## See Also
 
+* interface [ICasePhases](./ICasePhases.md)
+* interface [IDestructiveCase](./IDestructiveCase.md)
 * namespace [Jds.TestingUtils.Xunit2.Extras](../TestingUtils.Xunit2.Extras.md)
 * [ICaseArrangementFixture.cs](https://github.com/JeremiahSanders/testingutils-xunit-extras/tree/main/src/library/ICaseArrangementFixture.cs)
 
