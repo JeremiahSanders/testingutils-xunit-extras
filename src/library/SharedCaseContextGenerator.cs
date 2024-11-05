@@ -26,12 +26,18 @@ public class SharedCaseContextGenerator : ISourceGenerator
     if (context.SyntaxReceiver is SyntaxReceiver receiver)
       foreach (var classDeclaration in receiver.CandidateClasses.Distinct())
       {
-        var (hintName, source) = CreateSource(classDeclaration);
-        context.AddSource(hintName, source);
+        var (collectionHintName, collectionSource) = CreateCollectionSource(classDeclaration);
+        context.AddSource(collectionHintName, collectionSource);
+
+        var (assertionsHintName, assertionsSource) = CreateAssertionsSource(classDeclaration);
+        context.AddSource(assertionsHintName, assertionsSource);
+
+        var (fixtureHintName, fixtureSource) = CreateFixtureSource(classDeclaration);
+        context.AddSource(fixtureHintName, fixtureSource);
       }
   }
 
-  internal static (string hintName, string source) CreateSource(ClassDeclarationSyntax classDeclaration)
+  internal static (string hintName, string source) CreateCollectionSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
@@ -41,30 +47,60 @@ public class SharedCaseContextGenerator : ISourceGenerator
     static string BuildSource(string namespaceName, string className)
     {
       var builder = new StringBuilder($@"
-using XunitCollectionDefinition = Xunit.CollectionDefinitionAttribute;
-using XunitCollection = Xunit.CollectionAttribute;
-using XunitTestOutputHelper = Xunit.Abstractions.ITestOutputHelper;
+namespace {namespaceName}
+{{
+    [Xunit.CollectionDefinition(""{className}"")]
+    public class {className}Collection : Xunit.ICollectionFixture<{className}>
+    {{
+    }}
+}}");
+      return builder.ToString();
+    }
+  }
+
+  internal static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
+  {
+    var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
+    var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
+    var source = BuildSource(namespaceName, className);
+    return ($"{className}Assertions", source);
+
+    static string BuildSource(string namespaceName, string className)
+    {
+      var builder = new StringBuilder($@"
+namespace {namespaceName}
+{{
+    [Xunit.Collection(""{className}"")]
+    public abstract class {className}Assertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
+      where TCaseArrangementFixture : {className}Fixture
+    {{
+        protected {className}Assertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+          : base(fixture, testOutputHelper)
+        {{
+        }}
+    }}
+}}");
+      return builder.ToString();
+    }
+  }
+
+
+  internal static (string hintName, string source) CreateFixtureSource(ClassDeclarationSyntax classDeclaration)
+  {
+    var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
+    var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
+    var source = BuildSource(namespaceName, className);
+    return ($"{className}Fixture", source);
+
+    static string BuildSource(string namespaceName, string className)
+    {
+      var builder = new StringBuilder($@"
 using JdsCasePhases = Jds.TestingUtils.Xunit2.Extras.ICasePhases;
 using JdsDestructiveCase = Jds.TestingUtils.Xunit2.Extras.IDestructiveCase;
 using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.ICaseArrangementFixture;
 
 namespace {namespaceName}
 {{
-    [XunitCollectionDefinition(""{className}"")]
-    public class {className}Collection : Xunit.ICollectionFixture<{className}>
-    {{
-    }}
-
-    [XunitCollection(""{className}"")]
-    public abstract class {className}Assertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
-      where TCaseArrangementFixture : {className}Fixture
-    {{
-        protected {className}Assertions(TCaseArrangementFixture fixture, XunitTestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
-        {{
-        }}
-    }}
-
     /// <summary>An <c>abstract</c> base test case arrangement fixture which has access to the shared <see cref=""{className}"" /> context object.</summary>
     /// <remarks>
     ///   <para>How to use:</para>
