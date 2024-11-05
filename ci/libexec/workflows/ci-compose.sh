@@ -21,7 +21,6 @@ function ci-compose() {
   function createDocs() {
     cd "${PROJECT_ROOT}"
     
-    local libPath="${BUILD_UNPACKAGED_DIST}/TestingUtils.Patterns.dll"
     local sourcePath="${BUILD_UNPACKAGED_DIST}/TestingUtils.Xunit2.Extras.dll"
 
     local outputPath="${BUILD_DOCS}/md"
@@ -29,11 +28,6 @@ function ci-compose() {
     dotnet xmldocmd "${sourcePath}" "${outputPath}" \
       --namespace "Jds.TestingUtils.Xunit2.Extras" \
       --source "https://github.com/JeremiahSanders/testingutils-xunit-extras/tree/main/src/library" \
-      --newline lf \
-      --visibility public &&
-    dotnet xmldocmd "${libPath}" "${outputPath}" \
-      --namespace "Jds.TestingUtils.Patterns" \
-      --source "https://github.com/JeremiahSanders/testingutils-xunit-extras/tree/main/src/domain" \
       --newline lf \
       --visibility public &&
     printf "Generated Markdown documentation.\n"

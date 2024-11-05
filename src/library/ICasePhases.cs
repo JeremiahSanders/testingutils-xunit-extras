@@ -1,4 +1,4 @@
-namespace Jds.TestingUtils.Patterns;
+namespace Jds.TestingUtils.Xunit2.Extras;
 
 /// <summary>
 ///     Methods which define a test case's pre-assert phases:

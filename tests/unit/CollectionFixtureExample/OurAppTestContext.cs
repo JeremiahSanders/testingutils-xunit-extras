@@ -2,6 +2,10 @@ using FluentAssertions;
 
 namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.CollectionFixtureExample;
 
+/// <summary>
+///   This is an example of a &quot;shared test context&quot;.
+///   I.e., a class which provides shared <c>readonly</c> configuration or context across multiple test classes.
+/// </summary>
 public class OurAppTestContext
 {
   public OurAppTestContext()
@@ -16,12 +20,17 @@ public class OurAppTestContext
   public IReadOnlyDictionary<string, Uri> ConfiguredUris { get; }
 }
 
+/// <summary>
+///   This is a class which xUnit requires to support constructor dependency injection
+///   of the &quot;shared test context&quot;.
+///   According to xUnit documentation:
+///   This class has no code, and is never created. Its purpose is simply
+///   to be the place to apply <see cref="CollectionDefinitionAttribute" /> and all the
+///   <see cref="ICollectionFixture{TFixture}" /> interfaces.
+/// </summary>
 [CollectionDefinition(nameof(OurAppTestContext))]
 public class OurTestAppContextCollection : ICollectionFixture<OurAppTestContext>
 {
-  // This class has no code, and is never created. Its purpose is simply
-  // to be the place to apply [CollectionDefinition] and all the
-  // ICollectionFixture<> interfaces.
 }
 
 /// <summary>
@@ -29,19 +38,12 @@ public class OurTestAppContextCollection : ICollectionFixture<OurAppTestContext>
 ///   I.e., it depends only upon the &quot;shared context&quot;.
 /// </summary>
 [Collection(nameof(OurAppTestContext))]
-public class ExampleTestClassWithNoFixture
+public class ExampleTestClassWithNoFixture(OurAppTestContext fixture)
 {
-  private readonly OurAppTestContext _fixture;
-
-  public ExampleTestClassWithNoFixture(OurAppTestContext fixture)
-  {
-    _fixture = fixture;
-  }
-
   [Fact]
   public void SharedContextHasConfiguredUris()
   {
-    _fixture.ConfiguredUris.Should().NotBeEmpty();
+    fixture.ConfiguredUris.Should().NotBeEmpty();
   }
 }
 
@@ -51,32 +53,31 @@ public class ExampleTestClassWithNoFixture
 ///   (a class which uses it as the generic argument when implementing <see cref="IClassFixture{TFixture}" />).
 /// </summary>
 /// <remarks>
-///   Note that this class does not have the <see cref="Xunit.CollectionAttribute" /> attribute.
+///   Note that this class does NOT have the <see cref="Xunit.CollectionAttribute" /> attribute.
 ///   Instead, the &quot;test assertion class&quot;
 /// </remarks>
-public class ExampleFixture
+public class ExampleFixture(OurAppTestContext context)
 {
-  public ExampleFixture(OurAppTestContext context)
-  {
-    Context = context;
-  }
-
-  public OurAppTestContext Context { get; }
+  public OurAppTestContext Context { get; } = context;
 }
 
+/// <summary>
+///   This is an example of a &quot;test assertion class&quot;.
+/// </summary>
+/// <remarks>
+///   <para>
+///     Note that this class uses <see cref="IClassFixture{TFixture}" /> so that a single instance of its fixture
+///     is used for every test method.
+///     Additionally, this class has the <see cref="Xunit.CollectionAttribute" /> attribute identifying it as depending
+///     upon the shared test context on which its case arrangement depends.
+///   </para>
+/// </remarks>
 [Collection(nameof(OurAppTestContext))]
-public class ExampleFixtureAssertions : IClassFixture<ExampleFixture>
+public class ExampleFixtureAssertions(ExampleFixture fixture) : IClassFixture<ExampleFixture>
 {
-  private readonly ExampleFixture _fixture;
-
-  public ExampleFixtureAssertions(ExampleFixture fixture)
-  {
-    _fixture = fixture;
-  }
-
   [Fact]
   public void SharedContextHasConfiguredUris()
   {
-    _fixture.Context.ConfiguredUris.Should().NotBeEmpty();
+    fixture.Context.ConfiguredUris.Should().NotBeEmpty();
   }
 }
