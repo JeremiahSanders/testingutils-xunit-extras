@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <Authors>jds</Authors>
-    <Company />
+    <Company/>
     <Copyright>Copyright (c) 2024 Jeremiah Sanders</Copyright>
     <Description>TestingUtils.Xunit2.Extras</Description>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
@@ -31,6 +31,12 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.7.0"/>
     <PackageReference Include="xunit.abstractions" Version="2.0.3"/>
     <PackageReference Include="xunit.extensibility.core" Version="2.4.1"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Package the generator in the analyzer directory of the nuget package -->
+    <!--  Source: https://github.com/dotnet/roslyn/blob/main/docs/features/source-generators.cookbook.md#package-a-generator-as-a-nuget-package  -->
+    <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false"/>
   </ItemGroup>
 
   <ItemGroup>
