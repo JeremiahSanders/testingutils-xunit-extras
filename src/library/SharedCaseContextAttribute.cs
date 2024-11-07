@@ -1,4 +1,6 @@
-﻿namespace Jds.TestingUtils.Xunit2.Extras;
+﻿using Jds.TestingUtils.Xunit2.Extras.Generators;
+
+namespace Jds.TestingUtils.Xunit2.Extras;
 
 /// <summary>
 ///   Attribute which declares that this <c>class</c> (the <c>class</c> to which it is applied) is designed to be a

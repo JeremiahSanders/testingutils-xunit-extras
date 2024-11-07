@@ -1,4 +1,5 @@
 ﻿using FluentAssertions;
+using Jds.TestingUtils.Xunit2.Extras.Generators;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
@@ -35,7 +36,7 @@ namespace MyOrganization.MyProject.TestNamespace
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateCollectionSource(classDeclaration);
+      var (hintName, sourceCode) = SharedContextCollectionGeneration.CreateCollectionSource(classDeclaration);
 
 
       // Assert
@@ -59,7 +60,7 @@ public class TestClass
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateCollectionSource(classDeclaration);
+      var (hintName, sourceCode) = SharedContextCollectionGeneration.CreateCollectionSource(classDeclaration);
 
       // Assert
       hintName.Should().Be("TestClassCollection");
@@ -100,7 +101,7 @@ namespace MyOrganization.MyProject.TestNamespace
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateAssertionsSource(classDeclaration);
+      var (hintName, sourceCode) = SharedCaseAssertionsGeneration.CreateAssertionsSource(classDeclaration);
 
       // Assert
       hintName.Should().Be("TestClassAssertions");
@@ -123,7 +124,7 @@ public class TestClass
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateAssertionsSource(classDeclaration);
+      var (hintName, sourceCode) = SharedCaseAssertionsGeneration.CreateAssertionsSource(classDeclaration);
 
 
       // Assert
@@ -256,7 +257,7 @@ namespace MyOrganization.MyProject.TestNamespace
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateFixtureSource(classDeclaration);
+      var (hintName, sourceCode) = SharedCaseFixtureGeneration.CreateFixtureSource(classDeclaration);
 
 
       // Assert
@@ -280,7 +281,7 @@ public class TestClass
         (ClassDeclarationSyntax)syntaxTree.GetRoot().DescendantNodes().First(node => node is ClassDeclarationSyntax);
 
       // Act
-      var (hintName, sourceCode) = SharedCaseContextGenerator.CreateFixtureSource(classDeclaration);
+      var (hintName, sourceCode) = SharedCaseFixtureGeneration.CreateFixtureSource(classDeclaration);
 
       // Assert
       hintName.Should().Be("TestClassFixture");
