@@ -101,7 +101,7 @@ using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.ICaseArrangemen
 
 namespace {namespaceName}
 {{
-    /// <summary>An <c>abstract</c> base test case arrangement fixture which has access to the shared <see cref=""{className}"" /> context object.</summary>
+    /// <summary>A base test case arrangement fixture which has access to the shared <see cref=""{className}"" /> context object.</summary>
     /// <remarks>
     ///   <para>How to use:</para>
     ///   <para>
@@ -112,7 +112,7 @@ namespace {namespaceName}
     ///     where <c>TCaseArrangementFixture</c> is this class.
     ///   </para>
     ///   <para>
-    ///     When xUnit constructs this class it will invokes those methods once for this fixture.
+    ///     When xUnit constructs this class it will invoke the test phase methods once for this fixture.
     ///     <see cref=""ArrangeAsync"" />, <see cref=""AcquireSanityValuesAsync"" />,
     ///     <see cref=""ActAsync"" />, and <see cref=""AcquireVerificationValuesAsync"" />
     ///     execute before the test methods in the &quot;assertions&quot; class (which will perform assertions
@@ -126,13 +126,13 @@ namespace {namespaceName}
     ///     require no constructor parameters other than <see cref=""{className}"" />.
     ///   </para>
     /// </remarks>
-    public abstract class {className}Fixture : JdsCaseArrangementFixture
+    public class {className}Fixture : JdsCaseArrangementFixture
     {{
         /// <summary>Gets the shared <see cref=""{className}"" /> object.</summary>
         /// <remarks>This context is expected to contain shared, <c>readonly</c> configuration and dependencies for this fixture.</remarks>
         public {className} Context {{ get; init; }}
 
-        protected {className}Fixture({className} context)
+        public {className}Fixture({className} context)
         {{
             Context = context;
         }}
