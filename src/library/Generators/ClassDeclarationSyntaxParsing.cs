@@ -1,7 +1,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Jds.TestingUtils.Xunit2.Extras.GeneratorInternal;
+namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
 internal static class ClassDeclarationSyntaxParsing
 {

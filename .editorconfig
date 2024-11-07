@@ -10,6 +10,10 @@ indent_size = 2
 insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
+
+# ReSharper properties
+resharper_braces_for_foreach = required
+resharper_braces_for_ifelse = required
 [*.{fs,fsx}]
 indent_size = 4
 insert_final_newline = true

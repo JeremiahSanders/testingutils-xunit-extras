@@ -1,91 +1,11 @@
-﻿using System.Text;
-using Jds.TestingUtils.Xunit2.Extras.GeneratorInternal;
-using Microsoft.CodeAnalysis;
+using System.Text;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Xunit;
 
-namespace Jds.TestingUtils.Xunit2.Extras;
+namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
-/// <summary>
-///   A source generator which produces a base test case arrangement fixture,
-///   a base &quot;assertion&quot;/&quot;test&quot; class,
-///   and an implementation of <see cref="ICollectionFixture{TFixture}" /> (required for xUnit).
-/// </summary>
-[Generator]
-public class SharedCaseContextGenerator : ISourceGenerator
+internal static class SharedCaseFixtureGeneration
 {
-  /// <inheritdoc />
-  public void Initialize(GeneratorInitializationContext context)
-  {
-    context.RegisterForSyntaxNotifications(() => new SyntaxReceiver());
-  }
-
-  /// <inheritdoc />
-  public void Execute(GeneratorExecutionContext context)
-  {
-    if (context.SyntaxReceiver is SyntaxReceiver receiver)
-      foreach (var classDeclaration in receiver.CandidateClasses.Distinct())
-      {
-        var (collectionHintName, collectionSource) = CreateCollectionSource(classDeclaration);
-        context.AddSource(collectionHintName, collectionSource);
-
-        var (assertionsHintName, assertionsSource) = CreateAssertionsSource(classDeclaration);
-        context.AddSource(assertionsHintName, assertionsSource);
-
-        var (fixtureHintName, fixtureSource) = CreateFixtureSource(classDeclaration);
-        context.AddSource(fixtureHintName, fixtureSource);
-      }
-  }
-
-  internal static (string hintName, string source) CreateCollectionSource(ClassDeclarationSyntax classDeclaration)
-  {
-    var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
-    var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
-    return ($"{className}Collection", source);
-
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
-namespace {namespaceName}
-{{
-    [Xunit.CollectionDefinition(""{className}"")]
-    public class {className}Collection : Xunit.ICollectionFixture<{className}>
-    {{
-    }}
-}}");
-      return builder.ToString();
-    }
-  }
-
-  internal static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
-  {
-    var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
-    var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
-    return ($"{className}Assertions", source);
-
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
-namespace {namespaceName}
-{{
-    [Xunit.Collection(""{className}"")]
-    public abstract class {className}Assertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
-      where TCaseArrangementFixture : {className}Fixture
-    {{
-        protected {className}Assertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
-        {{
-        }}
-    }}
-}}");
-      return builder.ToString();
-    }
-  }
-
-
-  internal static (string hintName, string source) CreateFixtureSource(ClassDeclarationSyntax classDeclaration)
+  public static (string hintName, string source) CreateFixtureSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
@@ -199,24 +119,6 @@ namespace {namespaceName}
     }}
 }}");
       return builder.ToString();
-    }
-  }
-
-  private class SyntaxReceiver : ISyntaxReceiver
-  {
-    public List<ClassDeclarationSyntax> CandidateClasses { get; } = new();
-
-    public void OnVisitSyntaxNode(SyntaxNode syntaxNode)
-    {
-      if (syntaxNode is ClassDeclarationSyntax classDeclarationSyntax
-          && classDeclarationSyntax.AttributeLists.Count > 0)
-        foreach (var attributeList in classDeclarationSyntax.AttributeLists)
-        foreach (var attribute in attributeList.Attributes)
-          if (attribute.Name.ToString() == "SharedCaseContext")
-          {
-            CandidateClasses.Add(classDeclarationSyntax);
-            break;
-          }
     }
   }
 }
