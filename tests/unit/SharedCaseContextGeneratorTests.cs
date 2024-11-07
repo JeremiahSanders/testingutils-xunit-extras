@@ -134,25 +134,25 @@ public class TestClass
 
   public class CreateFixtureSourceTests
   {
-    private const string expectedSource = @"
+    private const string expectedSource = $@"
 using JdsCasePhases = Jds.TestingUtils.Xunit2.Extras.ICasePhases;
 using JdsDestructiveCase = Jds.TestingUtils.Xunit2.Extras.IDestructiveCase;
 using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.ICaseArrangementFixture;
 
 namespace MyOrganization.MyProject.TestNamespace
-{
-    /// <summary>An <c>abstract</c> base test case arrangement fixture which has access to the shared <see cref=""TestClass"" /> context object.</summary>
+{{
+    /// <summary>A base test case arrangement fixture which has access to the shared <see cref=""TestClass"" /> context object.</summary>
     /// <remarks>
     ///   <para>How to use:</para>
     ///   <para>
     ///     Override the <see cref=""ArrangeAsync"" />, <see cref=""AcquireSanityValuesAsync"" />,
     ///     <see cref=""ActAsync"" />, <see cref=""AcquireVerificationValuesAsync"" />,
     ///     and <see cref=""CleanupAsync"" /> methods as needed.
-    ///     Then, create an &quot;assertion/test&quot; class, based on <see cref=""TestClassAssertions{TCaseArrangementFixture}"" />,
+    ///     Then, create an &quot;assertion/test&quot; class, based on <see cref=""TestClassAssertions{{TCaseArrangementFixture}}"" />,
     ///     where <c>TCaseArrangementFixture</c> is this class.
     ///   </para>
     ///   <para>
-    ///     When xUnit constructs this class it will invokes those methods once for this fixture.
+    ///     When xUnit constructs this class it will invoke the test phase methods once for this fixture.
     ///     <see cref=""ArrangeAsync"" />, <see cref=""AcquireSanityValuesAsync"" />,
     ///     <see cref=""ActAsync"" />, and <see cref=""AcquireVerificationValuesAsync"" />
     ///     execute before the test methods in the &quot;assertions&quot; class (which will perform assertions
@@ -166,78 +166,78 @@ namespace MyOrganization.MyProject.TestNamespace
     ///     require no constructor parameters other than <see cref=""TestClass"" />.
     ///   </para>
     /// </remarks>
-    public abstract class TestClassFixture : JdsCaseArrangementFixture
-    {
+    public class TestClassFixture : JdsCaseArrangementFixture
+    {{
         /// <summary>Gets the shared <see cref=""TestClass"" /> object.</summary>
         /// <remarks>This context is expected to contain shared, <c>readonly</c> configuration and dependencies for this fixture.</remarks>
-        public TestClass Context { get; init; }
+        public TestClass Context {{ get; init; }}
 
-        protected TestClassFixture(TestClass context)
-        {
+        public TestClassFixture(TestClass context)
+        {{
             Context = context;
-        }
+        }}
 
         /// <inheritdoc />
         Task JdsCasePhases.ActAsync()
-        {
+        {{
             return this.ActAsync();
-        }
+        }}
 
         /// <inheritdoc />
         Task JdsCasePhases.ArrangeAsync()
-        {
+        {{
             return this.ArrangeAsync();
-        }
+        }}
 
         /// <inheritdoc />
         Task JdsCasePhases.AcquireSanityValuesAsync()
-        {
+        {{
             return this.AcquireSanityValuesAsync();
-        }
+        }}
 
         /// <inheritdoc />
         Task JdsCasePhases.AcquireVerificationValuesAsync()
-        {
+        {{
             return this.AcquireVerificationValuesAsync();
-        }
+        }}
 
         /// <inheritdoc />
         Task JdsDestructiveCase.CleanupAsync()
-        {
+        {{
             return this.CleanupAsync();
-        }
+        }}
 
         /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.ArrangeAsync""/>
         protected virtual Task ArrangeAsync()
-        {
+        {{
             return Task.CompletedTask;
-        }
+        }}
 
         /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.AcquireSanityValuesAsync""/>
         protected virtual Task AcquireSanityValuesAsync()
-        {
+        {{
             return Task.CompletedTask;
-        }
+        }}
 
         /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.ActAsync""/>
         protected virtual Task ActAsync()
-        {
+        {{
             return Task.CompletedTask;
-        }
+        }}
 
         /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.AcquireVerificationValuesAsync""/>
         protected virtual Task AcquireVerificationValuesAsync()
-        {
+        {{
             return Task.CompletedTask;
-        }
+        }}
 
         /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.IDestructiveCase.CleanupAsync""/>
         protected virtual Task CleanupAsync()
-        {
+        {{
             return Task.CompletedTask;
-        }
-    }
-}";
+        }}
+    }}
+}}";
 
     [Fact]
     public void Should_Return_Correct_Source_With_Block_Scoped_Namespace()
