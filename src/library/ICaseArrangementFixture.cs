@@ -20,7 +20,10 @@ namespace Jds.TestingUtils.Xunit2.Extras;
 ///     It executes <see cref="IDestructiveCase.CleanupAsync" /> during <see cref="IAsyncLifetime.DisposeAsync" />.
 ///   </para>
 ///   <para>
-///     How to use: implement one or more of the <see cref="ICasePhases" /> methods.
+///     How to use: implement one or more of the <see cref="ICasePhases" /> methods as either <c>public</c>
+///     or as interface implementations (e.g., <c>Task ICasePhases.ActAsync(){ ... }</c>).
+///     Anything which occurs in the <see cref="ICasePhases" /> methods will be complete when test assertion methods
+///     execute (i.e., <see cref="FactAttribute" /> and <see cref="TheoryAttribute" /> methods).
 ///   </para>
 /// </remarks>
 public interface ICaseArrangementFixture : IAsyncLifetime, ICasePhases, IDestructiveCase
@@ -38,6 +41,12 @@ public interface ICaseArrangementFixture : IAsyncLifetime, ICasePhases, IDestruc
   async Task IAsyncLifetime.DisposeAsync()
   {
     await CleanupAsync();
+  }
+
+  /// <inheritdoc />
+  Task ICasePhases.ActAsync()
+  {
+    return Task.CompletedTask;
   }
 
   /// <inheritdoc />
