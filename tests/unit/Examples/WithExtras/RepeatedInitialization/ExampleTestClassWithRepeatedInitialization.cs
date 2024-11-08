@@ -1,7 +1,7 @@
 using System.Diagnostics.CodeAnalysis;
 using Xunit.Abstractions;
 
-namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
+namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.Examples.WithExtras.RepeatedInitialization;
 
 /// <summary>
 ///   This test class shows a simple use of <see cref="ICaseArrangementFixture" /> to provide test structure.

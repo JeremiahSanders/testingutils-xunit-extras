@@ -1,7 +1,7 @@
 ﻿using FluentAssertions;
 using Xunit.Abstractions;
 
-namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
+namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.Examples.WithExtras.SharedConfiguration;
 
 /// <summary>
 ///   An example &quot;shared context&quot; <c>class</c> which shares configuration or initialization across multiple

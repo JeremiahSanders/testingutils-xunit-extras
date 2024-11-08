@@ -1,6 +1,6 @@
 ﻿using Xunit.Abstractions;
 
-namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
+namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.Examples.WithExtras.SingleInitialization;
 
 /// <summary>
 ///     This class is an example representing a test case where the case arrangement workflow is executed once.
