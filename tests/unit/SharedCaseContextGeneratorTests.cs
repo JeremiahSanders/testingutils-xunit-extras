@@ -138,7 +138,7 @@ public class TestClass
     private const string expectedSource = $@"
 using JdsCasePhases = Jds.TestingUtils.Xunit2.Extras.ICasePhases;
 using JdsDestructiveCase = Jds.TestingUtils.Xunit2.Extras.IDestructiveCase;
-using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.ICaseArrangementFixture;
+using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.BaseCaseFixture;
 
 namespace MyOrganization.MyProject.TestNamespace
 {{
@@ -176,66 +176,6 @@ namespace MyOrganization.MyProject.TestNamespace
         public TestClassFixture(TestClass context)
         {{
             Context = context;
-        }}
-
-        /// <inheritdoc />
-        Task JdsCasePhases.ActAsync()
-        {{
-            return this.ActAsync();
-        }}
-
-        /// <inheritdoc />
-        Task JdsCasePhases.ArrangeAsync()
-        {{
-            return this.ArrangeAsync();
-        }}
-
-        /// <inheritdoc />
-        Task JdsCasePhases.AcquireSanityValuesAsync()
-        {{
-            return this.AcquireSanityValuesAsync();
-        }}
-
-        /// <inheritdoc />
-        Task JdsCasePhases.AcquireVerificationValuesAsync()
-        {{
-            return this.AcquireVerificationValuesAsync();
-        }}
-
-        /// <inheritdoc />
-        Task JdsDestructiveCase.CleanupAsync()
-        {{
-            return this.CleanupAsync();
-        }}
-
-        /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.ArrangeAsync""/>
-        protected virtual Task ArrangeAsync()
-        {{
-            return Task.CompletedTask;
-        }}
-
-        /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.AcquireSanityValuesAsync""/>
-        protected virtual Task AcquireSanityValuesAsync()
-        {{
-            return Task.CompletedTask;
-        }}
-
-        /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.ActAsync""/>
-        protected virtual Task ActAsync()
-        {{
-            return Task.CompletedTask;
-        }}
-
-        /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.ICasePhases.AcquireVerificationValuesAsync""/>
-        protected virtual Task AcquireVerificationValuesAsync()
-        {{
-            return Task.CompletedTask;
-        }}
-
-        /// <inheritdoc cref=""Jds.TestingUtils.Xunit2.Extras.IDestructiveCase.CleanupAsync""/>
-        protected virtual Task CleanupAsync()
-        {{
-            return Task.CompletedTask;
         }}
     }}
 }}";

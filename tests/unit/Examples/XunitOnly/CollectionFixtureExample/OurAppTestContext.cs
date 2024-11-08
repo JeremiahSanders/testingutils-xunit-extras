@@ -1,6 +1,6 @@
 using FluentAssertions;
 
-namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.CollectionFixtureExample;
+namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit.Examples.XunitOnly.CollectionFixtureExample;
 
 /// <summary>
 ///   This is an example of a &quot;shared test context&quot;.

@@ -5,6 +5,7 @@
 | public type | description |
 | --- | --- |
 | abstract class [BaseCaseAssertions&lt;TCaseArrangementFixture&gt;](./Jds.TestingUtils.Xunit2.Extras/BaseCaseAssertions-1.md) | A base "test class" (i.e., a `class` which contains `xUnit``Fact` and `Theory` methods). |
+| class [BaseCaseFixture](./Jds.TestingUtils.Xunit2.Extras/BaseCaseFixture.md) | A base test case arrangement fixture which has default implementations for all [`ICasePhases`](./Jds.TestingUtils.Xunit2.Extras/ICasePhases.md) and [`IDestructiveCase`](./Jds.TestingUtils.Xunit2.Extras/IDestructiveCase.md) methods and adapts them to run in IAsyncLifetime. |
 | interface [ICaseArrangementFixture](./Jds.TestingUtils.Xunit2.Extras/ICaseArrangementFixture.md) | A general-purpose test case fixture. Apply to an xUnit "test class" (i.e., a class which contains one or more facts ( FactAttribute) or theories (TheoryAttribute)). |
 | interface [ICasePhases](./Jds.TestingUtils.Xunit2.Extras/ICasePhases.md) | Methods which define a test case's pre-assert phases: (1) arrange, (2) acquire sanity values, (3) act, (4) acquire verification values. |
 | interface [IDestructiveCase](./Jds.TestingUtils.Xunit2.Extras/IDestructiveCase.md) | Methods which provide an API to clean up changes made by the test case arrangement. |
