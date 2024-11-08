@@ -12,7 +12,7 @@ Implementing this interface creates default implementations of all [`ICasePhases
 
 Additionally, this interface implements xUnit's IAsyncLifetime. It executes [`ArrangeAsync`](./ICasePhases/ArrangeAsync.md), [`AcquireSanityValuesAsync`](./ICasePhases/AcquireSanityValuesAsync.md), [`ActAsync`](./ICasePhases/ActAsync.md), and [`AcquireVerificationValuesAsync`](./ICasePhases/AcquireVerificationValuesAsync.md) during InitializeAsync. It executes [`CleanupAsync`](./IDestructiveCase/CleanupAsync.md) during DisposeAsync.
 
-How to use: implement one or more of the [`ICasePhases`](./ICasePhases.md) methods.
+How to use: implement one or more of the [`ICasePhases`](./ICasePhases.md) methods as either `public` or as interface implementations (e.g., `Task ICasePhases.ActAsync(){ ... }`). Anything which occurs in the [`ICasePhases`](./ICasePhases.md) methods will be complete when test assertion methods execute (i.e., FactAttribute and TheoryAttribute methods).
 
 ## See Also
 
