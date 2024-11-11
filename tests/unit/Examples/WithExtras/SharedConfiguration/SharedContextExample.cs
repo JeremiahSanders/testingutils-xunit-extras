@@ -78,12 +78,19 @@ public class ExampleSharedContextArrangement : ExampleSharedContextFixture
 
   protected override Task AcquireVerificationValuesAsync()
   {
-    if (Guid.TryParse(ActResult, out var result)) VerificationValue = result;
+    if (Guid.TryParse(ActResult, out var result))
+    {
+      VerificationValue = result;
+    }
 
     return Task.CompletedTask;
   }
 }
 
+/// <summary>
+///   An example test class which makes assertions upon the actions arranged in its fixture,
+///   <see cref="ExampleSharedContextArrangement" />.
+/// </summary>
 public class ExampleSharedContextArrangementAssertions : ExampleSharedContextAssertions<ExampleSharedContextArrangement>
 {
   public ExampleSharedContextArrangementAssertions(ExampleSharedContextArrangement caseArrangementFixture,
@@ -98,5 +105,27 @@ public class ExampleSharedContextArrangementAssertions : ExampleSharedContextAss
     var expected = CaseArrangement.Context.SharedAsynchronousValue.ToString("D");
 
     CaseArrangement.ActResult.Should().Be(expected);
+  }
+}
+
+/// <summary>
+///   An example test class which does not need a single-initialization fixture,
+///   but which still needs information from the shared test context.
+/// </summary>
+public class AssertionsWhichDependUponTheSharedContextButNeedsNoFixture : ExampleSharedContextAssertions
+{
+  public AssertionsWhichDependUponTheSharedContextButNeedsNoFixture(ExampleSharedContextFixture fixture,
+    ITestOutputHelper testOutputHelper)
+    : base(fixture, testOutputHelper)
+  {
+  }
+
+  /// <summary>
+  ///   A simple example assertion. Uses information from the read-only shared context.
+  /// </summary>
+  [Fact]
+  public void ContextIsInitialized()
+  {
+    CaseContext.SharedAsynchronousValue.Should().NotBe(Guid.Empty);
   }
 }
