@@ -41,7 +41,7 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> : IClassFixtur
     ///         <see cref="ICasePhases.AcquireSanityValuesAsync" />.
     ///     </para>
     /// </remarks>
-    public TCaseArrangementFixture CaseArrangement { get; }
+    protected TCaseArrangementFixture CaseArrangement { get; }
 
     /// <summary>
     ///     Gets the <see cref="ITestOutputHelper" /> provided by xUnit.
@@ -66,5 +66,5 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> : IClassFixtur
     ///         failures).
     ///     </para>
     /// </remarks>
-    public ITestOutputHelper TestOutputHelper { get; }
+    protected ITestOutputHelper TestOutputHelper { get; }
 }

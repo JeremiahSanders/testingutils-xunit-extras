@@ -70,19 +70,35 @@ public class TestClass
 
   public class CreateAssertionsSourceTests
   {
-    private const string expectedSource = @"
+    private const string expectedSource = $@"
 namespace MyOrganization.MyProject.TestNamespace
-{
+{{
+    /// <summary>
+    ///   A base test class which makes assertions related to <typeparamref name=""TCaseArrangementFixture""/> and
+    ///   has access to a shared <see cref=""TestClass""/> context object.
+    /// </summary>
     [Xunit.Collection(""TestClass"")]
     public abstract class TestClassAssertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
       where TCaseArrangementFixture : TestClassFixture
-    {
+    {{
         protected TestClassAssertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
           : base(fixture, testOutputHelper)
-        {
-        }
-    }
-}";
+        {{
+        }}
+
+        /// <summary>Gets the shared case context object exposed by <see cref=""TCaseArrangementFixture""/></summary>
+        protected TestClass CaseContext => CaseArrangement.Context;
+    }}
+
+    /// <summary>A base test class which has access to a shared <see cref=""TestClass""/> context object.</summary>
+    public abstract class TestClassAssertions : TestClassAssertions<TestClassFixture>
+    {{
+        protected TestClassAssertions(TestClassFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+          : base(fixture, testOutputHelper)
+        {{
+        }}
+    }}
+}}";
 
     [Fact]
     public void Should_Return_Correct_Source_With_Block_Scoped_Namespace()
