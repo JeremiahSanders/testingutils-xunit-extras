@@ -81,8 +81,8 @@ namespace MyOrganization.MyProject.TestNamespace
     public abstract class TestClassAssertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
       where TCaseArrangementFixture : TestClassFixture
     {{
-        protected TestClassAssertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected TestClassAssertions(TCaseArrangementFixture fixture)
+          : base(fixture)
         {{
         }}
 
@@ -93,8 +93,8 @@ namespace MyOrganization.MyProject.TestNamespace
     /// <summary>A base test class which has access to a shared <see cref=""TestClass""/> context object.</summary>
     public abstract class TestClassAssertions : TestClassAssertions<TestClassFixture>
     {{
-        protected TestClassAssertions(TestClassFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected TestClassAssertions(TestClassFixture fixture)
+          : base(fixture)
         {{
         }}
     }}

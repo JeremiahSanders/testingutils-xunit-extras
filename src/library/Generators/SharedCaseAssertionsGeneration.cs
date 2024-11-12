@@ -25,8 +25,8 @@ namespace {namespaceName}
     public abstract class {className}Assertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
       where TCaseArrangementFixture : {className}Fixture
     {{
-        protected {className}Assertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected {className}Assertions(TCaseArrangementFixture fixture)
+          : base(fixture)
         {{
         }}
 
@@ -37,8 +37,8 @@ namespace {namespaceName}
     /// <summary>A base test class which has access to a shared <see cref=""{className}""/> context object.</summary>
     public abstract class {className}Assertions : {className}Assertions<{className}Fixture>
     {{
-        protected {className}Assertions({className}Fixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected {className}Assertions({className}Fixture fixture)
+          : base(fixture)
         {{
         }}
     }}

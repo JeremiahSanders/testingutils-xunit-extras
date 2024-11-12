@@ -1,11 +1,9 @@
-﻿using Xunit.Abstractions;
-
-namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
+﻿namespace Jds.TestingUtils.Xunit2.Extras.Tests.Unit;
 
 public class BaseCaseFixtureTests : BaseCaseAssertions<BaseCaseFixtureTests.CaseFixture>
 {
-  public BaseCaseFixtureTests(CaseFixture caseArrangementFixture, ITestOutputHelper testOutputHelper)
-    : base(caseArrangementFixture, testOutputHelper)
+  public BaseCaseFixtureTests(CaseFixture caseArrangementFixture)
+    : base(caseArrangementFixture)
   {
   }
 
