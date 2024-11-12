@@ -5,16 +5,25 @@ namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
 internal static class SharedCaseFixtureGeneration
 {
-  public static (string hintName, string source) CreateFixtureSource(ClassDeclarationSyntax classDeclaration)
+  internal static (string hintName, string source) CreateFixtureSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
+    var source = CreateFixtureSource(namespaceName, className);
     return ($"{className}Fixture", source);
+  }
 
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
+  internal static (string hintName, string source) CreateFixtureSource(RecordDeclarationSyntax recordDeclaration)
+  {
+    var className = RecordDeclarationSyntaxParsing.GetRecordName(recordDeclaration);
+    var namespaceName = RecordDeclarationSyntaxParsing.GetNamespaceName(recordDeclaration);
+    var source = CreateFixtureSource(namespaceName, className);
+    return ($"{className}Fixture", source);
+  }
+
+  internal static string CreateFixtureSource(string namespaceName, string className)
+  {
+    var builder = new StringBuilder($@"
 using JdsCasePhases = Jds.TestingUtils.Xunit2.Extras.ICasePhases;
 using JdsDestructiveCase = Jds.TestingUtils.Xunit2.Extras.IDestructiveCase;
 using JdsCaseArrangementFixture = Jds.TestingUtils.Xunit2.Extras.BaseCaseFixture;
@@ -58,7 +67,6 @@ namespace {namespaceName}
         }}
     }}
 }}");
-      return builder.ToString();
-    }
+    return builder.ToString();
   }
 }

@@ -5,16 +5,25 @@ namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
 internal static class SharedCaseAssertionsGeneration
 {
-  public static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
+  internal static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
+    var source = CreateAssertionsSource(namespaceName, className);
     return ($"{className}Assertions", source);
+  }
 
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
+  internal static (string hintName, string source) CreateAssertionsSource(RecordDeclarationSyntax recordDeclaration)
+  {
+    var recordName = RecordDeclarationSyntaxParsing.GetRecordName(recordDeclaration);
+    var namespaceName = RecordDeclarationSyntaxParsing.GetNamespaceName(recordDeclaration);
+    var source = CreateAssertionsSource(namespaceName, recordName);
+    return ($"{recordName}Assertions", source);
+  }
+
+  internal static string CreateAssertionsSource(string namespaceName, string className)
+  {
+    var builder = new StringBuilder($@"
 namespace {namespaceName}
 {{
     /// <summary>
@@ -43,7 +52,6 @@ namespace {namespaceName}
         }}
     }}
 }}");
-      return builder.ToString();
-    }
+    return builder.ToString();
   }
 }
