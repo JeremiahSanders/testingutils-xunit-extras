@@ -29,7 +29,7 @@ function ci-compose() {
       --namespace "Jds.TestingUtils.Xunit2.Extras" \
       --source "https://github.com/JeremiahSanders/testingutils-xunit-extras/tree/main/src/library" \
       --newline lf \
-      --visibility public &&
+      --visibility protected &&
     printf "Generated Markdown documentation.\n"
   }
 

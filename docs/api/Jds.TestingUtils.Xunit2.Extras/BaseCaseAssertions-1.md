@@ -12,6 +12,13 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> :
 | --- | --- |
 | TCaseArrangementFixture | A case arrangement fixture. |
 
+## Protected Members
+
+| name | description |
+| --- | --- |
+| [BaseCaseAssertions](BaseCaseAssertions-1/BaseCaseAssertions.md)(…) | Initializes a new instance of [`BaseCaseAssertions`](./BaseCaseAssertions-1.md). |
+| [CaseArrangement](BaseCaseAssertions-1/CaseArrangement.md) { get; } | Gets the case arrangement. |
+
 ## Remarks
 
 xUnit will create a single instance of *TCaseArrangementFixture* and provide the same instance to each test method (due to IClassFixture).
