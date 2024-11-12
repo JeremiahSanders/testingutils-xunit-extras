@@ -5,16 +5,25 @@ namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
 internal static class SharedContextCollectionGeneration
 {
-  public static (string hintName, string source) CreateCollectionSource(ClassDeclarationSyntax classDeclaration)
+  internal static (string hintName, string source) CreateCollectionSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
+    var source = CreateCollectionSource(namespaceName, className);
     return ($"{className}Collection", source);
+  }
 
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
+  internal static (string hintName, string source) CreateCollectionSource(RecordDeclarationSyntax recordDeclaration)
+  {
+    var recordName = RecordDeclarationSyntaxParsing.GetRecordName(recordDeclaration);
+    var namespaceName = RecordDeclarationSyntaxParsing.GetNamespaceName(recordDeclaration);
+    var source = CreateCollectionSource(namespaceName, recordName);
+    return ($"{recordName}Collection", source);
+  }
+
+  internal static string CreateCollectionSource(string namespaceName, string className)
+  {
+    var builder = new StringBuilder($@"
 namespace {namespaceName}
 {{
     [Xunit.CollectionDefinition(""{className}"")]
@@ -22,7 +31,6 @@ namespace {namespaceName}
     {{
     }}
 }}");
-      return builder.ToString();
-    }
+    return builder.ToString();
   }
 }

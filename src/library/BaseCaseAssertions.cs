@@ -24,11 +24,9 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> : IClassFixtur
     ///     A case arrangement fixture instance.
     ///     It is expected that the fixture's <see cref="IAsyncLifetime.InitializeAsync" /> is complete.
     /// </param>
-    /// <param name="testOutputHelper">A <see cref="ITestOutputHelper" />. Supports logging during assertion methods.</param>
-    protected BaseCaseAssertions(TCaseArrangementFixture caseArrangementFixture, ITestOutputHelper testOutputHelper)
+    protected BaseCaseAssertions(TCaseArrangementFixture caseArrangementFixture)
     {
         CaseArrangement = caseArrangementFixture;
-        TestOutputHelper = testOutputHelper;
     }
 
     /// <summary>
@@ -42,29 +40,4 @@ public abstract class BaseCaseAssertions<TCaseArrangementFixture> : IClassFixtur
     ///     </para>
     /// </remarks>
     protected TCaseArrangementFixture CaseArrangement { get; }
-
-    /// <summary>
-    ///     Gets the <see cref="ITestOutputHelper" /> provided by xUnit.
-    /// </summary>
-    /// <remarks>
-    ///     <para>
-    ///         Derived types (test case assertion classes) test methods can use this to log messages.
-    ///     </para>
-    ///     <para>
-    ///         This is most commonly used with sanity tests (tests making assertions about state after
-    ///         <see cref="ICasePhases.ArrangeAsync" />, but before <see cref="ICasePhases.ActAsync" />).
-    ///         In these tests it is used to log an arrangement's &quot;initial state&quot;.
-    ///     </para>
-    ///     <para>
-    ///         When used in tests making assertions about the <see cref="ICasePhases.ActAsync" /> results, it is most
-    ///         commonly used to log parameters and/or results.
-    ///     </para>
-    ///     <para>
-    ///         When used in verification tests (tests making assertions about the values captured during
-    ///         <see cref="ICasePhases.AcquireVerificationValuesAsync" />), it is most commonly used to log unexpected values
-    ///         or failure context prior to invoking &quot;assert&quot; test methods (since they normally throw exceptions on
-    ///         failures).
-    ///     </para>
-    /// </remarks>
-    protected ITestOutputHelper TestOutputHelper { get; }
 }

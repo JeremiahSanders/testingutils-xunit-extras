@@ -18,7 +18,7 @@ Create a normal xUnit test class and **either** _inherit from_ `Jds.TestingUtils
 
 When inheriting from `BaseCaseFixture` there are `protected` methods to `override` (`ArrangeAsync`, `ActAsync`, etc.). Override any (or none) to support your needed arrangement.
 
-When implementing `ICaseArrangementFixture` you **must** implement an `ActAsync` method. The other structured test case phases have a default implementation provided by the interface.
+When implementing `ICaseArrangementFixture` all structured test case phases (`ICasePhases`) have a default implementation provided by the interface. Implement any or all of the following: `ICasePhases.ArrangeAsync`, `ICasePhases.AcquireSanityValuesAsync`, `ICasePhases.ActAsync`, `ICasePhases.AcquireVerificationValuesAsync`. If the test requires any cleanup (e.g., deleting temporary database resources, files), implement `IDestructiveCase.CleanupAsync`.
 
 See [example `ExampleTestClassWithRepeatedInitialization` implementation][ExampleTestClassWithRepeatedInitialization].
 

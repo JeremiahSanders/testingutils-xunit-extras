@@ -12,13 +12,23 @@ public class BaseCaseFixture : ICaseArrangementFixture
 | --- | --- |
 | [BaseCaseFixture](BaseCaseFixture/BaseCaseFixture.md)() | The default constructor. |
 
+## Protected Members
+
+| name | description |
+| --- | --- |
+| virtual [AcquireSanityValuesAsync](BaseCaseFixture/AcquireSanityValuesAsync.md)() |  |
+| virtual [AcquireVerificationValuesAsync](BaseCaseFixture/AcquireVerificationValuesAsync.md)() |  |
+| virtual [ActAsync](BaseCaseFixture/ActAsync.md)() |  |
+| virtual [ArrangeAsync](BaseCaseFixture/ArrangeAsync.md)() |  |
+| virtual [CleanupAsync](BaseCaseFixture/CleanupAsync.md)() |  |
+
 ## Remarks
 
 Inherit from this class to easily apply structured test execution to a test fixture.
 
 When inheriting from this class:
 
-If the class contains any xUnit `Fact` or `Theory` methods, then it will be executed like an (assertion) test class. ArrangeAsync, AcquireSanityValuesAsync, ActAsync, and AcquireVerificationValuesAsync will each execute before every test method.
+If the class contains any xUnit `Fact` or `Theory` methods, then it will be executed like an (assertion) test class. [`ArrangeAsync`](./BaseCaseFixture/ArrangeAsync.md), [`AcquireSanityValuesAsync`](./BaseCaseFixture/AcquireSanityValuesAsync.md), [`ActAsync`](./BaseCaseFixture/ActAsync.md), and [`AcquireVerificationValuesAsync`](./BaseCaseFixture/AcquireVerificationValuesAsync.md) will each execute before every test method.
 
 If the class does NOT contain any xUnit `Fact` or `Theory` methods, then the class can be an xUnit "class fixture". To do so, create a test assertion class based on [`BaseCaseAssertions`](./BaseCaseAssertions-1.md) where its `TCaseArrangementFixture` is the fixture class derived from this type. xUnit will create one instance of the derived fixture and use it for each test method. The fixture's methods will only be called ONCE, for the whole test assertion class.
 

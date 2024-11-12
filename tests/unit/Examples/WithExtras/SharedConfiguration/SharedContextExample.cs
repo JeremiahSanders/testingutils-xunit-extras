@@ -93,9 +93,8 @@ public class ExampleSharedContextArrangement : ExampleSharedContextFixture
 /// </summary>
 public class ExampleSharedContextArrangementAssertions : ExampleSharedContextAssertions<ExampleSharedContextArrangement>
 {
-  public ExampleSharedContextArrangementAssertions(ExampleSharedContextArrangement caseArrangementFixture,
-    ITestOutputHelper testOutputHelper)
-    : base(caseArrangementFixture, testOutputHelper)
+  public ExampleSharedContextArrangementAssertions(ExampleSharedContextArrangement caseArrangementFixture)
+    : base(caseArrangementFixture)
   {
   }
 
@@ -114,9 +113,8 @@ public class ExampleSharedContextArrangementAssertions : ExampleSharedContextAss
 /// </summary>
 public class AssertionsWhichDependUponTheSharedContextButNeedsNoFixture : ExampleSharedContextAssertions
 {
-  public AssertionsWhichDependUponTheSharedContextButNeedsNoFixture(ExampleSharedContextFixture fixture,
-    ITestOutputHelper testOutputHelper)
-    : base(fixture, testOutputHelper)
+  public AssertionsWhichDependUponTheSharedContextButNeedsNoFixture(ExampleSharedContextFixture fixture)
+    : base(fixture)
   {
   }
 

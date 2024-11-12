@@ -5,16 +5,25 @@ namespace Jds.TestingUtils.Xunit2.Extras.Generators;
 
 internal static class SharedCaseAssertionsGeneration
 {
-  public static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
+  internal static (string hintName, string source) CreateAssertionsSource(ClassDeclarationSyntax classDeclaration)
   {
     var className = ClassDeclarationSyntaxParsing.GetClassName(classDeclaration);
     var namespaceName = ClassDeclarationSyntaxParsing.GetNamespaceName(classDeclaration);
-    var source = BuildSource(namespaceName, className);
+    var source = CreateAssertionsSource(namespaceName, className);
     return ($"{className}Assertions", source);
+  }
 
-    static string BuildSource(string namespaceName, string className)
-    {
-      var builder = new StringBuilder($@"
+  internal static (string hintName, string source) CreateAssertionsSource(RecordDeclarationSyntax recordDeclaration)
+  {
+    var recordName = RecordDeclarationSyntaxParsing.GetRecordName(recordDeclaration);
+    var namespaceName = RecordDeclarationSyntaxParsing.GetNamespaceName(recordDeclaration);
+    var source = CreateAssertionsSource(namespaceName, recordName);
+    return ($"{recordName}Assertions", source);
+  }
+
+  internal static string CreateAssertionsSource(string namespaceName, string className)
+  {
+    var builder = new StringBuilder($@"
 namespace {namespaceName}
 {{
     /// <summary>
@@ -25,8 +34,8 @@ namespace {namespaceName}
     public abstract class {className}Assertions<TCaseArrangementFixture> : Jds.TestingUtils.Xunit2.Extras.BaseCaseAssertions<TCaseArrangementFixture>
       where TCaseArrangementFixture : {className}Fixture
     {{
-        protected {className}Assertions(TCaseArrangementFixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected {className}Assertions(TCaseArrangementFixture fixture)
+          : base(fixture)
         {{
         }}
 
@@ -37,13 +46,12 @@ namespace {namespaceName}
     /// <summary>A base test class which has access to a shared <see cref=""{className}""/> context object.</summary>
     public abstract class {className}Assertions : {className}Assertions<{className}Fixture>
     {{
-        protected {className}Assertions({className}Fixture fixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
-          : base(fixture, testOutputHelper)
+        protected {className}Assertions({className}Fixture fixture)
+          : base(fixture)
         {{
         }}
     }}
 }}");
-      return builder.ToString();
-    }
+    return builder.ToString();
   }
 }
